@@ -1,27 +1,15 @@
 import { mount } from '@vue/test-utils' 
 import Hello from './Hello.vue'
 
-let setup = {
-  components: { Hello },
-  template: `<Hello/>`,
-}
-
 describe('Test', () => {
   let wrapper
   beforeEach(() => {
-    wrapper = mount(setup)
-  })
-  afterEach(() => {
-    wrapper.destroy()
+    wrapper = mount(Hello, { sync: false })
   })
 
-  // would work with a single test
-  it('does stuff', () => {
-    expect(wrapper).toBeTruthy()
-  })
-
-  // would work with a single test
-  it('does other stuff', () => {
-    expect(wrapper).toBeTruthy()
+  it('does stuff', async () => {
+    wrapper.setProps({ foo: 'xxx' })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.text()).toEqual('xxx')
   })
 })

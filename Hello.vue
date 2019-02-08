@@ -1,31 +1,28 @@
 <template>
-  <div>Hello!</div>
+  <div>{{ foo }}</div>
 </template>
 
 <script>
 export default {
   name: "Hello",
-  props: ["foo"],
-  data: () => ({
-    items: []
-  }),
-  methods: {
-    setup() {
-      ["item1", "item2"].forEach(item => {
-        this.items = this.items.concat(item); // would work without this
-      });
-    }
+  props: {
+    foo: String
   },
-  created() {
-    // this.setup(); // would work with immediate:false on watch and this uncomented
+  methods: {
+    accessingFoo() {
+      console.log("foo", this.foo); // would work if method weren't accessing foo
+    }
   },
   watch: {
     foo: {
       handler() {
-        this.setup();
+        this.accessingFoo();
       },
-      immediate: true // would work with immediate:false and setup() called from created()
+      immediate: true // works with immediate:false and created() uncomented
     }
+  },
+  created() {
+    // this.accessingFoo();
   }
 };
 </script>
