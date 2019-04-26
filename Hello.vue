@@ -13,8 +13,13 @@ export default {
       console.log("foo", this.foo); // would work if method weren't accessing foo
     }
   },
+  computed: {
+    fooComputed() {
+      return this.foo + 'test';
+    },
+  },
   watch: {
-    foo: {
+    fooComputed: {
       handler() {
         this.accessingFoo();
       },
